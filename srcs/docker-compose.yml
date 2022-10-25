@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  nginx:
+    build: ./requirements/nginx/
+    ports:
+      - target: 8080
+        published: 8080
