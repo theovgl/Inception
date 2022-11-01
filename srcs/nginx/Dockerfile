@@ -19,8 +19,8 @@ RUN openssl req -x509 \
             -subj "/C=FR/CN=tvogel.42.fr"
 
 # Copy nginx config
-# COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 443
 
-RUN /bin/sh -c "nginx"
+CMD [ "nginx", "-g", "daemon off;" ]

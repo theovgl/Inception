@@ -3,5 +3,5 @@ services:
   nginx:
     build: ./nginx/
     ports:
-      - target: 8080
-        published: 8080
+      - "443:443"
+    restart: always
