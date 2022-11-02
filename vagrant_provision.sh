@@ -22,6 +22,11 @@ apt update
 echo "============= INSTALL DOCKER PACKAGES ============="
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
+# Create docker group and add "vagrant" user in it
+sudo groupadd docker
+sudo usermod -aG docker vagrant
+newgrp docker
+
 # Upgrade all packages
 echo "============= APT UPGRADE ============="
 apt upgrade -y
