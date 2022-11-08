@@ -4,4 +4,10 @@ services:
     build: ./mariadb/
     ports:
       - "3306:3306"
-    restart: always
+    volumes:
+      - type: volume
+        source: db-data
+        target: /data
+#    restart: always
+volumes:
+  db-data:
