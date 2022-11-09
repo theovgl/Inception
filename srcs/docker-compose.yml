@@ -5,3 +5,14 @@ services:
     ports:
       - "443:443"
     restart: always
+  mariadb:
+    build: ./mariadb/
+    ports:
+      - "3306:3306"
+    volumes:
+      - type: volume
+        source: db-data
+        target: /data
+    restart: always
+volumes:
+  db-data:
