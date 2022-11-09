@@ -1,13 +1,7 @@
 FROM alpine:3.16
 
-# Update the Package list
-RUN apk update
-
 # Install prerequisites
-RUN apk add openssl curl ca-certificates
-
-# Install nginx
-RUN apk add nginx
+RUN apk update && apk add openssl curl ca-certificates nginx
 
 # Generate SSL certificate
 RUN openssl req -x509 \
@@ -16,7 +10,7 @@ RUN openssl req -x509 \
             -nodes \
             -keyout /etc/ssl/private/nginx-selfsigned.key \
             -out /etc/ssl/certs/nginx-selfsigned.cert -sha256 -days 365 \
-            -subj "/C=FR/CN=tvogel.42.fr"
+            -subj "/C=FR/L=Paris/CN=tvogel.42.fr/O=42"
 
 # Copy nginx config
 COPY nginx.conf /etc/nginx/nginx.conf
