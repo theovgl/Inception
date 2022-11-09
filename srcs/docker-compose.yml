@@ -8,6 +8,6 @@ services:
       - type: volume
         source: db-data
         target: /data
-#    restart: always
+    restart: always
 volumes:
   db-data:
