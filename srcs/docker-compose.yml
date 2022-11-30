@@ -1,18 +1,82 @@
 version: "3.8"
 services:
   nginx:
+    container_name: nginx
     build: ./nginx/
+    depends_on:
+      - wordpress
+    networks:
+      - inception
     ports:
       - "443:443"
-    restart: always
-  mariadb:
-    build: ./mariadb/
-    ports:
-      - "3306:3306"
     volumes:
-      - type: volume
-        source: db-data
-        target: /data
+      - wordpress:/var/www/html
+      - adminer:/var/www/adminer
+    restart: always
+
+  mariadb:
+    container_name: mariadb
+    build: ./mariadb/
+    networks:
+      - inception
+    expose:
+      - "3306"
+    environment:
+      MYSQL_ADMIN_NAME: ${WP_ADMIN_NAME}
+      MYSQL_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
+      DB_NAME: wordpress
+    volumes:
+      - mariadb:/var/lib/mysql
+    restart: always
+
+  wordpress:
+    container_name: wordpress
+    build: ./wordpress/
+    networks:
+      -  inception
+    depends_on:
+      - mariadb
+    environment:
+      DB_NAME: wordpress
+      WP_ADMIN_NAME: ${WP_ADMIN_NAME}
+      WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
+      WP_USER: ${WP_USER}
+      WP_USER_PASSWORD: ${WP_USER_PASSWORD}
+    expose:
+      - "9000"
+    volumes:
+      - wordpress:/var/www/html
+    restart: always
+
+  adminer:
+    container_name: adminer
+    build: ./bonus/adminer/
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    volumes:
+      - adminer:/var/www/adminer
+      - mariadb:/var/lib/mysql
     restart: always
 volumes:
-  db-data:
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/vagrant/data/wordpress
+      o: bind
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/vagrant/data/mariadb
+      o: bind
+  adminer:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/vagrant/data/adminer
+      o: bind
+networks:
+  inception:
