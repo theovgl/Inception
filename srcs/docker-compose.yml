@@ -64,19 +64,19 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/vagrant/data/wordpress
+      device: /home/tvogel/data/wordpress
       o: bind
   mariadb:
     driver: local
     driver_opts:
       type: none
-      device: /home/vagrant/data/mariadb
+      device: /home/tvogel/data/mariadb
       o: bind
   adminer:
     driver: local
     driver_opts:
       type: none
-      device: /home/vagrant/data/adminer
+      device: /home/tvogel/data/adminer
       o: bind
 networks:
   inception:

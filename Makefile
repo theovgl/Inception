@@ -1,6 +1,6 @@
 NAME=inception
 COMPOSE_PATH=srcs/docker-compose.yml
-HOME_PATH=/home/vagrant
+HOME_PATH=/home/tvogel
 
 $(NAME):
 	mkdir -p $(HOME_PATH)/data/adminer
