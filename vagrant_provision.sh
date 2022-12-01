@@ -12,10 +12,10 @@ apt-get install -y \
 
 echo "============= ADD TVOGEL USER ============="
 #if id -u "tvogel" &>/dev/null; then
-#	useradd -m -s /bin/bash -U tvogel
-#	cp -pr /home/vagrant/.ssh /home/tvogel
-#	chown -R tvogel:tvogel /home/tvogel
-#	echo "%tvogel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/tvogel
+	useradd -m -s /bin/bash -U tvogel
+	cp -pr /home/vagrant/.ssh /home/tvogel
+	chown -R tvogel:tvogel /home/tvogel
+	echo "%tvogel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/tvogel
 #else
 #	echo "user tvogel already exists"
 #fi
